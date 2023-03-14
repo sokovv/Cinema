@@ -19,6 +19,9 @@ return new class extends Migration
             $table->enum('type',['standart','vip','disabled'])->default('standart');
             $table->decimal('price', 5, 2)->default(0);
             $table->timestamps();
+            $table->boolean('taken')->default(false);
+            $table->integer('row')->default(0);
+            $table->integer('place')->default(0);
         });
     }
 

@@ -25,21 +25,6 @@ class ShowTime extends Model
         'sold_place_st',
     ];
 
-    public function hall()
-    {
-        return $this->belongsTo(Hall::class);
-    }
-
-    public function film()
-    {
-        return $this->belongsTo(Film::class);
-    }
-
-    public function ticket()
-    {
-        return $this->belongsTo(Ticket::class);
-    }
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -58,4 +43,21 @@ class ShowTime extends Model
     protected $casts = [
         'time_start' => 'datetime',
     ];
+
+
+    public function hall()
+    {
+        return $this->belongsTo(Hall::class);
+    }
+
+    public function film()
+    {
+        return $this->belongsTo(Film::class);
+    }
+
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class);
+    }
+
 }

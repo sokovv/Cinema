@@ -11,20 +11,20 @@
                     @if(Route::current()->uri === '/' || Route::current()->uri === 'admin')
                         @guest
                             <li class="nav-item">
-                                <a href="{{route('cinema')}}" class="nav-link {{active_link('cinema')}} text-white"
+                                <a href="{{route('cinema')}}" class="nav-link {{Utils::getActiveLink('cinema')}} text-white"
                                    aria-current="page">    {{ __('Главная') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('login')}}"
-                                   class="nav-link {{active_link('login')}} text-white">{{ __('Вход для админа') }}</a>
+                                   class="nav-link {{Utils::getActiveLink('login')}} text-white">{{ __('Вход для админа') }}</a>
                             </li>
                         @else
                             <li class="nav-item">
-                                <a href="{{route('index')}}" class="nav-link {{active_link('index')}} text-white"
+                                <a href="{{route('index')}}" class="nav-link {{Utils::getActiveLink('index')}} text-white"
                                    aria-current="page">    {{ __('Админка') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('cinema')}}" class="nav-link {{active_link('cinema')}} text-white"
+                                <a href="{{route('cinema')}}" class="nav-link {{Utils::getActiveLink('cinema')}} text-white"
                                    aria-current="page">    {{ __('Главная') }}</a>
                             </li>
                             <li class="nav-item">

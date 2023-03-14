@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Services\OpenSellService;
 use Livewire\Component;
 
 class OpenSale extends Component
@@ -9,28 +10,13 @@ class OpenSale extends Component
 
     public $close = true;
 
-    protected $rules = [
 
-    ];
-
-
-
-    public function updated($propertyName)
+    public function close(): void
     {
-        $this->validateOnly($propertyName);
+        $this->close = OpenSellService::openSellClose($this->close);
     }
 
-    public function close()
-    {
-        if ($this->close === true) {
-            $this->close = false;
-        } else {
-            $this->close = true;
-        }
-    
-    }
-
-    public function render()
+    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.open-sale', ['close' => $this->close]);
     }

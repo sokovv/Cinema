@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Hall;
+use App\Services\PriceService;
 use Livewire\Component;
 
 class ConfigurePrice extends Component
@@ -15,10 +16,8 @@ class ConfigurePrice extends Component
     public $idHall;
 
     protected $rules = [
-        'name' => 'required|max:30',
         'priceStandart' => 'required|min:0|max:5000',
         'priceVip' => 'required|min:0|max:10000',
-        'halls' => 'required',
     ];
 
     public function updated($propertyName)
@@ -26,26 +25,19 @@ class ConfigurePrice extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function configHall($id)
+    public function configHall($id): void
     {
         $hall = Hall::find($id);
         $hall->places()->get();
         $vP = $hall->places()->where('type', 'vip')->first();
         $sP = $hall->places()->where('type', 'standart')->first();
         $this->idHall = $id;
-        if ($vP !== null) {
-            $this->priceVip = $vP->price;
-        } else {
-            $this->priceVip = 'нет кресел';
-        }
-        if ($sP !== null) {
-            $this->priceStandart = $sP->price;
-        } else {
-            $this->priceStandart = 'нет кресел';
-        }
+        $this->priceVip = PriceService::priceVip($vP);
+        $this->priceStandart = PriceService::priceStandart($sP);
+
     }
 
-    public function save()
+    public function save(): void
     {
         $hall = Hall::find($this->idHall);
         $hall->places()->get();
@@ -63,7 +55,7 @@ class ConfigurePrice extends Component
 
     }
 
-    public function clear()
+    public function clear(): void
     {
         $hall = Hall::find($this->idHall);
         $places = $hall->places()->get();
@@ -74,7 +66,7 @@ class ConfigurePrice extends Component
 
     }
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.configure-price');
     }

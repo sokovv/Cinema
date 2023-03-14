@@ -46,7 +46,7 @@ class Hall extends Model
         return $this->hasMany(Place::class);
     }
 
-    public function show_times()
+    public function showTimes()
     {
         return $this->hasMany(ShowTime::class);
     }

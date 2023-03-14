@@ -19,16 +19,7 @@ class ChoosePlace extends Component
     public $takenIdArr = [];
 
 
-    protected $rules = [
-        'show_time' => 'required|max:30',
-    ];
-
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }
-
-    public function choosePlace($id, $number_row, $number_place)
+    public function choosePlace($id, $number_row, $number_place): void
     {
         array_push($this->takenIdArr, $id);
         array_push($this->arrRow, $number_row);
@@ -37,7 +28,7 @@ class ChoosePlace extends Component
     }
 
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.choose-place', ['tickets' => Ticket::class::get()]);
     }

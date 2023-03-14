@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('halls', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer(' rows')->default(0);
-            $table->integer(' places')->default(0);
+            $table->string('name')->nullable();
+            $table->index('name');
+            $table->integer('rows')->default(0);
+            $table->integer('places')->default(0);
             $table->timestamps();
         });
     }

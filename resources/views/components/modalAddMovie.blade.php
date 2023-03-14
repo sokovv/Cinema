@@ -16,7 +16,7 @@
                         <h4>{{ $name }}</h4>
                         @if($title==="Добавление фильма")
                             <input wire:model="title" class="conf-step__input mb-4" type="text"
-                                   placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name"
+                                   placeholder="Например, &laquo;Начало&raquo;" name="name"
                                    required>
                             {{ __('Описание') }}
                             <input wire:model="description" class="conf-step__input mb-4" type="text"

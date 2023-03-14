@@ -24,16 +24,6 @@ class Place extends Model
         'place',
     ];
 
-    public function hall()
-    {
-        return $this->belongsTo(Hall::class);
-    }
-
-    public function ticket()
-    {
-        return $this->belongsTo(Ticket::class);
-    }
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -52,4 +42,15 @@ class Place extends Model
     protected $casts = [
 
     ];
+
+    public function hall()
+    {
+        return $this->belongsTo(Hall::class);
+    }
+
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class);
+    }
+
 }

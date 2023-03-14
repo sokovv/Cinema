@@ -35,7 +35,7 @@
                     <div class="movie-seances__hall">
                         <h3 class="movie-seances__hall-title">{{$hall->name}}</h3>
                         <ul class="movie-seances__list">
-                            @foreach($film->show_times()->get() as $show_time)
+                            @foreach($film->showTimes()->get() as $show_time)
                                 @if($show_time->hall_id === $hall->id)
                                     <li class="movie-seances__time-block"><a class="movie-seances__time"
                                                                              href="{{route('hall_client',['id' => $show_time->id])}}">{{$show_time->time_start->format('H:i')}}</a>

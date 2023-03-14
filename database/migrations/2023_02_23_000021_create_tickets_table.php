@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('show_times_id')->constrained()->cascadeOnDelete();
             $table->foreignId('places_id')->constrained()->cascadeOnDelete();
             $table->foreignId('films_id')->constrained()->cascadeOnDelete();
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->integer('row')->default(0);
             $table->integer('place')->default(0);
             $table->string('qr')->default(0);

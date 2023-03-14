@@ -26,7 +26,25 @@ class Ticket extends Model
         'qr',
     ];
 
-    public function show_times()
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+
+    ];
+
+    public function showTimes()
     {
         return $this->hasOne(ShowTime::class);
     }
@@ -41,22 +59,5 @@ class Ticket extends Model
         return $this->belongsTo(Film::class);
     }
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
 
-    ];
-
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-
-    ];
 }

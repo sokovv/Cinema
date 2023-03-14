@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('show_times', function (Blueprint $table) {
             $table->id();
             $table->foreignId('hall_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('film_id')->constrained()->cascadeOnDelete();
             $table->integer('time_interval');
             $table->time('time_start');
             $table->integer('sold_place_vip')->default(0);

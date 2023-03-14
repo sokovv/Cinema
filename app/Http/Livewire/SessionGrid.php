@@ -31,7 +31,7 @@ class SessionGrid extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function submit()
+    public function submit(): void
     {
         $data = [
             'title' => $this->title,
@@ -43,7 +43,7 @@ class SessionGrid extends Component
         Film::class::create($data);
     }
 
-    public function submitShowTime($movieId)
+    public function submitShowTime($movieId): void
     {
         $data = [
             'time_start' => $this->start_time,
@@ -54,18 +54,17 @@ class SessionGrid extends Component
         ShowTime::class::create($data);
     }
 
-    public function deleteFilm($idFilm)
+    public function deleteFilm($idFilm): void
     {
         Film::class::find($idFilm)->delete();
     }
 
-    public function show_time_del($showId)
+    public function show_time_del($showId): void
     {
         ShowTime::class::find($showId)->delete();
     }
 
-
-    public function render()
+    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.session-grid', ['films' => Film::class::get(), 'hallsShow' => Hall::class::get(), 'showTimes' => ShowTime::class::get()]);
     }

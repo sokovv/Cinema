@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Carbon\CarbonPeriod;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,8 +26,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('admins*', function ($view) {
-            $view->with('balance', 100);
+        View::composer('*', function ($view) {
+            $view->with('days', array('ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'));
+            $view->with('date', Carbon::now());
+            $view->with('period', CarbonPeriod::create(Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()));
         });
     }
 }

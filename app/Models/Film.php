@@ -23,16 +23,6 @@ class Film extends Model
         'poster',
     ];
 
-    public function show_times()
-    {
-        return $this->hasMany(ShowTime::class);
-    }
-
-    public function tickets()
-    {
-        return $this->hasMany(Ticket::class);
-    }
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -51,4 +41,16 @@ class Film extends Model
     protected $casts = [
 
     ];
+
+    public function showTimes()
+    {
+        return $this->hasMany(ShowTime::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+
 }

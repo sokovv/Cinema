@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Hall;
 use App\Models\Place;
+use App\Services\PlacesService;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -18,10 +19,9 @@ class RegistrationPlaces extends Component
     public $halls;
 
     protected $rules = [
-        'name' => 'required|max:30',
+        'name' => 'required|max:255',
         'rows' => 'required|min:1|max:30',
         'places' => 'required|min:1|max:100',
-        'halls' => 'required',
     ];
 
     public function updated($propertyName)
@@ -29,23 +29,11 @@ class RegistrationPlaces extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function submit()
+    public function submit(): void
     {
         $validatedData = $this->validate();
-        $halls = Hall::class::get();
-        $name = $validatedData["name"];
-        $rows = $validatedData["rows"];
-        $places = $validatedData["places"];
-        Hall::class::where('name', $name)->update(['rows' => $rows]);
-        Hall::class::where('name', $name)->update(['places' => $places]);
-        $hall = Hall::class::where('name', $name)->first();
-        $allPlaces = $hall->rows * $hall->places;
-        DB::table('places')->where('hall_id', '=', $hall->id)->delete();
-        for ($i = 0; $i < $allPlaces; $i++) {
-            $hall->places()->create([
-                'hall_id' => $hall->id
-            ]);
-        }
+        $hall = PlacesService::regPlaces($validatedData);
+
         $this->columns = $hall->places;
         $this->placesNew = $hall->places()->get();
         $this->places = $hall->places;
@@ -53,7 +41,7 @@ class RegistrationPlaces extends Component
     }
 
 
-    public function configHall()
+    public function configHall(): void
     {
         $hall = Hall::class::where('name', $this->name)->first();
         $this->columns = $hall->places;
@@ -62,27 +50,15 @@ class RegistrationPlaces extends Component
         $this->rows = $hall->rows;
     }
 
-    public function typePlace($id)
+    public function typePlace($id): void
     {
-        $place = Place::find($id);
-        $type = $place->type;
-        switch ($type) {
-            case 'vip':
-                $place->type = 'disabled';
-                break;
-            case 'standart':
-                $place->type = 'vip';
-                break;
-            case 'disabled':
-                $place->type = 'standart';
-                break;
-        }
-        $place->save();
+
+     PlacesService::typePlaces($id);
         $this->configHall();
     }
 
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.registration-places');
     }
