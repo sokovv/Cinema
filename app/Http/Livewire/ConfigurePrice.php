@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Hall;
+use App\Services\PlacesService;
 use App\Services\PriceService;
 use Livewire\Component;
 
@@ -44,15 +45,9 @@ class ConfigurePrice extends Component
         $hall->places()->get();
         $vipPlaces = $hall->places()->where('type', 'vip')->get();
         $standartPlaces = $hall->places()->where('type', 'standart')->get();
+        $placeService = new PlacesService();
+        $placeService->save($vipPlaces, $standartPlaces, $this->priceVip, $this->priceStandart);
 
-        foreach ($vipPlaces as $vipPlace) {
-            $vipPlace->price = $this->priceVip;
-            $vipPlace->save();
-        }
-        foreach ($standartPlaces as $standartPlace) {
-            $standartPlace->price = $this->priceStandart;
-            $standartPlace->save();
-        }
 
     }
 
@@ -60,10 +55,8 @@ class ConfigurePrice extends Component
     {
         $hall = Hall::find($this->idHall);
         $places = $hall->places()->get();
-        foreach ($places as $place) {
-            $place->price = 0;
-            $place->save();
-        }
+        $placeService = new PlacesService();
+        $placeService->clear($places);
 
     }
 

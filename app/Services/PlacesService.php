@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class PlacesService
 {
 
-    public  function regPlaces($validatedData)
+    public function regPlaces($validatedData)
     {
         $name = $validatedData["name"];
         $rows = $validatedData["rows"];
@@ -28,7 +28,7 @@ class PlacesService
         return $hall;
     }
 
-    public  function typePlaces($id): void
+    public function typePlaces($id): void
     {
         $place = Place::find($id);
         $type = $place->type;
@@ -44,6 +44,27 @@ class PlacesService
                 break;
         }
         $place->save();
+    }
+
+
+    public function save($vipPlaces, $standartPlaces, $priceVip, $priceStandart): void
+    {
+        foreach ($vipPlaces as $vipPlace) {
+            $vipPlace->price = $priceVip;
+            $vipPlace->save();
+        }
+        foreach ($standartPlaces as $standartPlace) {
+            $standartPlace->price = $priceStandart;
+            $standartPlace->save();
+        }
+    }
+
+    public function clear($places): void
+    {
+        foreach ($places as $place) {
+            $place->price = 0;
+            $place->save();
+        }
     }
 
 
