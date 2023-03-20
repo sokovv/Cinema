@@ -27,8 +27,8 @@
                         </label>
                         <label class="conf-step__label conf-step__label-fullsize" for="name">
                            <h4> {{$timeStart}}</h4>
-                            <input wire:model="start_time" class="conf-step__input" type="time" value="00:00"
-                                   name="start_time" required>
+                            <input wire:model="startTime" class="conf-step__input" type="time" value="00:00"
+                                   name="startTime" required>
                         </label>
                         <div class="conf-step__buttons text-center">
                             <input type="submit" data-bs-dismiss="modal" value='Добавить'
@@ -37,7 +37,7 @@
 
                                 <div class="conf-step__buttons text-center">
                                     <h4>{{ $name }}</h4>
-                                    <input wire:click="show_time_del({{$showId}})" type="button" data-bs-dismiss="modal" value='Удалить'
+                                    <input wire:click="showTimeDel({{$showId}})" type="button" data-bs-dismiss="modal" value='Удалить'
                                            class="conf-step__button conf-step__button-accent">
                                     @endif
                                     <button data-bs-dismiss="modal" class="conf-step__button conf-step__button-regular">

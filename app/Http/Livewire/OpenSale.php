@@ -13,7 +13,8 @@ class OpenSale extends Component
 
     public function close(): void
     {
-        $this->close = OpenSellService::openSellClose($this->close);
+        $openSellService = new OpenSellService();
+        $this->close = $openSellService->openSellClose($this->close);
     }
 
     public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

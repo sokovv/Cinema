@@ -6,7 +6,7 @@ namespace App\Services;
 class PriceService
 {
 
-    public static function priceVip($vP)
+    public function priceVip($vP): mixed
     {
         if ($vP !== null) {
             $priceVip = $vP->price;
@@ -16,7 +16,7 @@ class PriceService
         return $priceVip;
     }
 
-    public static function priceStandart($sP)
+    public  function priceStandart($sP): mixed
     {
         if ($sP !== null) {
             $priceStandart = $sP->price;

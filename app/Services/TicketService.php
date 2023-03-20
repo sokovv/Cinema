@@ -9,7 +9,7 @@ use App\Models\Ticket;
 class TicketService
 {
 
-    public static function ticketCreate($id, $row, $place, $arrTaken)
+    public  function ticketCreate($id, $row, $place, $arrTaken): mixed
     {
         $show_time = ShowTime::class::find($id);
         $row = json_decode($row);
@@ -28,7 +28,7 @@ class TicketService
         return $show_time;
     }
 
-    public static function ticketText($ticketsPay, $show_time): ?string
+    public function ticketText($ticketsPay, $show_time): ?string
     {
         $text = null;
         foreach ($ticketsPay as $ticket) {
@@ -37,7 +37,7 @@ class TicketService
         return $text;
     }
 
-    public static function ticketSum($ticketsPay): ?string
+    public function ticketSum($ticketsPay): ?string
     {
         $sum = 0;
         foreach ($ticketsPay as $ticketSum) {
@@ -46,7 +46,7 @@ class TicketService
         return $sum;
     }
 
-    public static function ticketSave(): void
+    public  function ticketSave(): void
     {
         $tickets = Ticket::class::get();
         foreach ($tickets as $ticket) {

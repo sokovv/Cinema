@@ -14,9 +14,15 @@ class AdminIndexController extends Controller
     public $name;
     public $open_sell;
 
+    private $openSellService;
+    public function __construct(OpenSellService $service)
+    {
+        $this->openSellService = $service;
+    }
+
     public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
-        $open_sell = OpenSellService::openSell();
+        $open_sell = $this->openSellService->openSell();
         $halls = Hall::class::get();
         $this->name = $request->input('chairs-hall');
 
@@ -27,7 +33,7 @@ class AdminIndexController extends Controller
     {
 
         $open_sell = OpenSell::class::first();
-        OpenSellService::openSellConf($open_sell);
+        $this->openSellService->openSellConf($open_sell);
         $open_sell = OpenSell::class::get();
         $this->open_sell = $open_sell;
         return redirect()->back();

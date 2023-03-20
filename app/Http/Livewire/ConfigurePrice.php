@@ -20,7 +20,7 @@ class ConfigurePrice extends Component
         'priceVip' => 'required|min:0|max:10000',
     ];
 
-    public function updated($propertyName)
+    public function updated($propertyName): void
     {
         $this->validateOnly($propertyName);
     }
@@ -32,8 +32,9 @@ class ConfigurePrice extends Component
         $vP = $hall->places()->where('type', 'vip')->first();
         $sP = $hall->places()->where('type', 'standart')->first();
         $this->idHall = $id;
-        $this->priceVip = PriceService::priceVip($vP);
-        $this->priceStandart = PriceService::priceStandart($sP);
+        $priceService = new PriceService();
+        $this->priceVip = $priceService->priceVip($vP);
+        $this->priceStandart = $priceService->priceStandart($sP);
 
     }
 

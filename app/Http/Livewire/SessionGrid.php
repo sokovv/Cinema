@@ -5,6 +5,8 @@ namespace App\Http\Livewire;
 use App\Models\Film;
 use App\Models\Hall;
 use App\Models\ShowTime;
+use App\Services\FilmService;
+use App\Services\ShowTimeService;
 use Livewire\Component;
 
 class SessionGrid extends Component
@@ -14,7 +16,7 @@ class SessionGrid extends Component
     public $duration;
     public $poster;
     public $hall;
-    public $start_time;
+    public $startTime;
 
 
     protected $rules = [
@@ -23,34 +25,25 @@ class SessionGrid extends Component
         'duration' => 'required|min:1|max:500',
         'poster' => 'required|max:30',
         'hall' => 'required|max:30',
-        'start_time' => 'required',
+        'startTime' => 'required',
     ];
 
-    public function updated($propertyName)
+    public function updated($propertyName): void
     {
         $this->validateOnly($propertyName);
     }
 
     public function submit(): void
     {
-        $data = [
-            'title' => $this->title,
-            'description' => $this->description,
-            'duration' => $this->duration,
-            'poster' => $this->poster,
-        ];
-
+        $filmService = new FilmService();
+        $data = $filmService->filmCreate($this->title, $this->description, $this->duration, $this->poster);
         Film::class::create($data);
     }
 
     public function submitShowTime($movieId): void
     {
-        $data = [
-            'time_start' => $this->start_time,
-            'hall_id' => $this->hall,
-            'film_id' => Film::class::find($movieId)->id,
-            'time_interval' => Film::class::find($movieId)->duration,
-        ];
+        $showTimeService = new ShowTimeService();
+        $data = $showTimeService->showTimeCreate($this->startTime, $this->hall, $movieId);
         ShowTime::class::create($data);
     }
 
@@ -59,7 +52,7 @@ class SessionGrid extends Component
         Film::class::find($idFilm)->delete();
     }
 
-    public function show_time_del($showId): void
+    public function showTimeDel($showId): void
     {
         ShowTime::class::find($showId)->delete();
     }

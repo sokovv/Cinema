@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService {
 
-    public static function userCreate()
+    public function userCreate(): void
     {
         $user = [
             'name'=> 'Валера',

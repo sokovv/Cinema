@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Client\TicketController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Client\CinemaController;
@@ -17,8 +18,8 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [CinemaController::class, 'index'])->name('cinema');
 Route::get('/hall/{id}', [CinemaController::class, 'hall'])->name('hall_client');
-Route::get('/payment/{id}/{arrRow?}/{arrPlace?}/{arrTaken?}', [CinemaController::class, 'payment'])->name('payment');
-Route::get('/ticket/{id}', [CinemaController::class, 'ticket'])->name('ticket');
+Route::get('/payment/{id}/{arrRow?}/{arrPlace?}/{arrTaken?}', [TicketController::class, 'payment'])->name('payment');
+Route::get('/ticket/{id}', [TicketController::class, 'ticket'])->name('ticket');
 
 
 

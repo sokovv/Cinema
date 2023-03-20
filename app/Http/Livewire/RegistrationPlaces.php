@@ -3,9 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Hall;
-use App\Models\Place;
 use App\Services\PlacesService;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class RegistrationPlaces extends Component
@@ -24,7 +22,7 @@ class RegistrationPlaces extends Component
         'places' => 'required|min:1|max:100',
     ];
 
-    public function updated($propertyName)
+    public function updated($propertyName): void
     {
         $this->validateOnly($propertyName);
     }
@@ -32,7 +30,8 @@ class RegistrationPlaces extends Component
     public function submit(): void
     {
         $validatedData = $this->validate();
-        $hall = PlacesService::regPlaces($validatedData);
+        $placesService = new PlacesService();
+        $hall = $placesService->regPlaces($validatedData);
 
         $this->columns = $hall->places;
         $this->placesNew = $hall->places()->get();
@@ -52,8 +51,8 @@ class RegistrationPlaces extends Component
 
     public function typePlace($id): void
     {
-
-     PlacesService::typePlaces($id);
+        $placesService = new PlacesService();
+        $placesService->typePlaces($id);
         $this->configHall();
     }
 

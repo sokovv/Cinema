@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class PlacesService
 {
 
-    public static function regPlaces($validatedData)
+    public  function regPlaces($validatedData)
     {
         $name = $validatedData["name"];
         $rows = $validatedData["rows"];
@@ -28,7 +28,7 @@ class PlacesService
         return $hall;
     }
 
-    public static function typePlaces($id): void
+    public  function typePlaces($id): void
     {
         $place = Place::find($id);
         $type = $place->type;

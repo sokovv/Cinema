@@ -9,7 +9,7 @@ use App\Models\Ticket;
 class OpenSellService
 {
 
-    public static function openSell()
+    public  function openSell(): mixed
     {
         if (OpenSell::exists()) {
             $open_sell = OpenSell::class::first();
@@ -19,7 +19,7 @@ class OpenSellService
         return $open_sell;
     }
 
-    public static function openSellConf($open_sell): void
+    public  function openSellConf($open_sell): void
     {
         if ($open_sell->confirmed === 1) {
             $open_sell->confirmed = 0;
@@ -30,13 +30,8 @@ class OpenSellService
         $open_sell->save();
     }
 
-    public static function openSellClose($close)
+    public  function openSellClose($close): bool
     {
-        if ($close === true) {
-            $close = false;
-        } else {
-            $close = true;
-        }
-        return $close;
+        return !$close;
     }
 }
